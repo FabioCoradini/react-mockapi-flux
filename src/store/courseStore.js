@@ -1,11 +1,10 @@
-﻿import { EventEmmiter } from "events";
-import Dispatcher from "../appDispatcher";
+﻿import Dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
 
 const CHANGE_EVENT = "change";
 let _courses = []; //look is private, to access you need methods inside the store as getCourses() fro example
 
-class CourseStore extends EventEmmiter {
+class CourseStore {
   addChangeListener(callback) {
     /*
         This allow the react component to subscribe to our store

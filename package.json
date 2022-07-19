@@ -1,15 +1,18 @@
 {
-  "name": "ps-flux",
+  "name": "ps-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "bootstrap": "^4.3.1",
     "flux": "^3.1.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-toastify": "^5.1.1"
+    "react-toastify": "^5.1.1",
+    "redux": "^4.2.0"
   },
   "scripts": {
     "start": "run-p start:dev start:api",
