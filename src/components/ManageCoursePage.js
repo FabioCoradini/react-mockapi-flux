@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CourseForm from "./CourseForm";
 import courseStore from "../store/courseStore";
 import * as courseAction from "../actions/courseAction";
 import { toast } from "react-toastify";
+import { getCourseById } from "../store/courses";
 
 const ManageCoursePage = (props) => {
   const [errors, setErrors] = useState({});
-  const [course, setCourse] = useState({
-    id: null,
-    slug: "",
-    title: "",
-    authorId: null,
-    category: "",
-  });
+
+  const dispatch = useDispatch();
+  const course = useSelector(getCourseById);
+
+  // const [course, setCourse] = useState({
+  //   id: null,
+  //   slug: "",
+  //   title: "",
+  //   authorId: null,
+  //   category: "",
+  // });
 
   useEffect(() => {
     const slug = props.match.params.slug; // from the path `/courses/:slug`
