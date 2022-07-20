@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { getCourses } from "../api/courseApi";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadCourses, getCourses } from "../store/courses";
 import CourseList from "./CourseList";
 import { Link } from "react-router-dom";
 
 function CoursesPage() {
-  const [courses, setCourses] = useState([]);
+  const dispatch = useDispatch();
+  const courses = useSelector(getCourses);
 
   useEffect(() => {
-    getCourses().then(_courses => setCourses(_courses));
+    dispatch(loadCourses());
+    console.log("useEffect called");
   }, []);
 
   return (
