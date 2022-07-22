@@ -48,7 +48,14 @@ export const getCourses = createSelector(
   (courses) => courses.list
 );
 
-export const getCourseById = createSelector(
-  (state) => state.entities.courses,
-  (courses, id) => courses.list.filter((c) => c.id === id)
-);
+export const getCourseBySlug = (state) => (slug) => {
+  console.log("getCourseBySlug");
+  console.log("state", state);
+  console.log("slug", slug);
+  return state.entities.courses.list.filter((c) => c.slug === slug)[0];
+};
+
+// export const getCourseBySlug = createSelector(
+//   (state) => state.entities.courses,
+//   (courses, slug) => courses.list.filter((c) => c.slug === slug)
+// );
