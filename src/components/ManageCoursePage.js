@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CourseForm from "./CourseForm";
 
 import { toast } from "react-toastify";
-import { getCourseBySlug } from "../store/courses";
+import { getCourseBySlug, saveCourse } from "../store/courses";
 
 const ManageCoursePage = (props) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
-  const course = useSelector(getCourseBySlug)(props.match.params.slug);
+  const courseFromStore = useSelector((state) =>
+    getCourseBySlug(state, props.match.params.slug)
+  );
+  const [course, setCourse] = useState(
+    courseFromStore || {
+      title: "",
+      slug: "",
+      authorId: 0,
+      category: "",
+    }
+  );
 
   function handleChange({ target }) {
-    // setCourse({
-    //   ...course,
-    //   [target.name]: target.value,
-    // });
+    setCourse({ ...course, [target.name]: target.value });
   }
 
   function formIsValid() {
@@ -32,11 +40,16 @@ const ManageCoursePage = (props) => {
   function handleSubmit(event) {
     event.preventDefault();
     if (!formIsValid()) return;
-    alert("salvandoooo");
-    // courseAction.saveCourse(course).then(() => {
-    //   props.history.push("/courses");
-    //   toast.success("Course saved.");
-    // });
+
+    // update slug
+    course.slug = course.title.toLowerCase().trim().replace(" ", "-");
+
+    dispatch(saveCourse(course))
+      .then(() => {
+        props.history.push("/courses");
+        toast.success("Course saved.");
+      })
+      .catch((err) => alert(err));
   }
 
   return (
