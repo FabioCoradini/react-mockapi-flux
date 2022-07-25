@@ -3,6 +3,21 @@ import TextInput from "./common/TextInput";
 import PropTypes from "prop-types";
 
 function CourseForm(props) {
+  const authors = [
+    {
+      id: 1,
+      name: "Cory House",
+    },
+    {
+      id: 2,
+      name: "Scott Allen",
+    },
+    {
+      id: 3,
+      name: "Dan Wahlin",
+    },
+  ];
+
   return (
     <form onSubmit={props.onSubmit}>
       <TextInput
@@ -24,9 +39,13 @@ function CourseForm(props) {
             value={props.course.authorId || ""}
             className="form-control"
           >
-            <option value="" />
-            <option value="1">Cory House</option>
-            <option value="2">Scott Allen</option>
+            {authors.map((author) => {
+              return (
+                <option key={author.id} value={author.id}>
+                  {author.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         {props.errors.authorId && (

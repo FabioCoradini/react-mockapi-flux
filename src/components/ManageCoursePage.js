@@ -16,7 +16,7 @@ const ManageCoursePage = (props) => {
     courseFromStore || {
       title: "",
       slug: "",
-      authorId: 0,
+      authorId: 1,
       category: "",
     }
   );
@@ -39,10 +39,12 @@ const ManageCoursePage = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (!formIsValid()) return;
 
-    // update slug
-    course.slug = course.title.toLowerCase().trim().replace(" ", "-");
+    if (!formIsValid()) return;
+    if (course.slug === "")
+      course.slug = course.title.toLowerCase().trim().replace(" ", "-");
+
+    console.log(course);
 
     dispatch(saveCourse(course))
       .then(() => {

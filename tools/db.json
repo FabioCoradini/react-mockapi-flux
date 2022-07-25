@@ -2,8 +2,8 @@
   "courses": [
     {
       "id": 1,
-      "title": "Securing React Apps with Auth0bx yy",
-      "slug": "securing-react apps with auth0bx yy",
+      "title": "Securing React Apps with Auth0 fdfdfdfd",
+      "slug": "securing-react apps with auth0",
       "authorId": 1,
       "category": "JavaScript"
     },
@@ -69,6 +69,22 @@
       "slug": "web-components-shadow-dom",
       "authorId": 1,
       "category": "HTML5"
+    },
+    {
+      "title": "r",
+      "slug": "r",
+      "authorId": 1,
+      "category": "d",
+      "createdAt": 1658778506746,
+      "id": 11
+    },
+    {
+      "title": "dgg",
+      "slug": "dgg",
+      "authorId": 1,
+      "category": "gg",
+      "createdAt": 1658778538836,
+      "id": 12
     }
   ],
   "authors": [

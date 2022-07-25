@@ -10,7 +10,6 @@ function CoursesPage() {
 
   useEffect(() => {
     dispatch(loadCourses());
-    console.log("useEffect called");
   }, [dispatch]);
 
   return (

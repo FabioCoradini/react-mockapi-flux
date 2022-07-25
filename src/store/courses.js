@@ -11,20 +11,24 @@ const slice = createSlice({
     coursesRequested: (courses, action) => {
       courses.loading = true;
     },
-
     coursesReceived: (courses, action) => {
       courses.list = action.payload;
       courses.loading = false;
     },
-
     coursesRequestFailed: (courses, action) => {
       courses.loading = false;
     },
-
     courseSaved: (courses, action) => {
       const savedCourse = action.payload;
       const index = courses.list.findIndex((bug) => bug.id === savedCourse.id);
       courses.list[index] = { ...savedCourse };
+      courses.loading = false;
+    },
+    courseAdded: (courses, action) => {
+      const ids = courses.list.map((c) => {
+        return c.id;
+      });
+      courses.list.push({ ...action.payload, id: Math.max(...ids) + 1 });
       courses.loading = false;
     },
   },
@@ -34,10 +38,10 @@ export const {
   coursesRequested,
   coursesReceived,
   courseSaved,
+  courseAdded,
   coursesRequestFailed,
 } = slice.actions;
 
-console.log(courseSaved(1));
 export default slice.reducer;
 
 // Action Creators
@@ -56,10 +60,12 @@ export const loadCourses = () => (dispatch, getState) => {
 
 export const saveCourse = (course) => {
   return apiCallBegan({
-    url: url + "/" + course.id,
-    method: "patch",
-    data: course,
-    onSuccess: courseSaved.type,
+    url: url + "/" + (course.id || ""),
+    method: course.id ? "patch" : "post",
+    data: { ...course, authorId: parseInt(course.authorId, 10) },
+    onStart: coursesRequested.type,
+    onSuccess: course.id ? courseSaved.type : courseAdded.type,
+    onError: coursesRequestFailed.type,
   });
 };
 
